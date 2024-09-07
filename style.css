@@ -1,0 +1,210 @@
+
+@font-face {
+    font-family: 'Katibeh';
+    src: url('fonts/Katibeh-Regular.eot'); /* IE9 Compat Modes */
+    src: url('fonts/Katibeh-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('fonts/Katibeh-Regular.woff') format('woff'), /* Modern Browsers */
+         url('fonts/Katibeh-Regular.ttf')  format('truetype'), /* Safari, Android, iOS */
+         url('fonts/Katibeh-Regular.svg#Katibeh-Regular') format('svg'); /* Legacy iOS */
+}
+@font-face {
+    font-family: 'Roboto';
+    src: url('fonts/Roboto-Thin.eot'); /* IE9 Compat Modes */
+    src: url('fonts/Roboto-Thin.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('fonts/Roboto-Thin.woff') format('woff'), /* Modern Browsers */
+         url('fonts/Roboto-Thin.ttf')  format('truetype'), /* Safari, Android, iOS */
+         url('fonts/Roboto-Thin.svg#Roboto-Regular') format('svg'); /* Legacy iOS */
+}
+
+
+html, body{
+    font-family: 'katibeh';
+    background-color: #262626;
+    color: #FFF2DE;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    
+}
+#tb-qt, #tb-qt-app {
+    display: flex;
+    width: 275px;
+    height:295px;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+   
+    z-index: 10;
+}
+#tb-qt *, #tb-qt-app * {
+    position: absolute;
+
+}
+
+#loader{
+    
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    
+
+}
+
+#text-loader{
+    font-size: 100px;
+    height: 70px;
+    align-content: center;
+    text-align: center;
+    letter-spacing: 10px;
+}
+
+#app{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    position: relative;
+}
+.central-text{
+    display: flex;
+    height: 70px;
+    overflow: hidden;
+    z-index: 10;
+}
+.central-text [id^=ct-col] , .central-text [id^=ld-col]{
+    
+    display: flex;
+    flex-direction: column;
+    
+    
+   
+    
+
+}
+.central-text [id^=ct-col]{
+    transition: transform 1s;
+   
+}
+.central-text [id^=ct-col]  div, .central-text [id^=ld-col]  div{
+  
+    width: 50px;
+    position: relative;
+    font-size: 80px;
+    height: 70px;
+    text-align: center;
+    
+    
+
+}
+
+
+/*images project*/
+.img-project{
+    position: fixed;
+    width: 281px; 
+    z-index: 2;
+   
+    
+}
+
+#img-mobile-food{
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    z-index: 2;
+
+    top: 70vh;
+    left: 70vw;
+    transition: filter 0.3s linear, transform 1s cubic-bezier(0, 0.75, 0.19, 1);
+   
+    width: 281px;  
+    height: 200px;
+    bottom: 0;
+    right: 0;
+}
+#img-mobile-food *{
+  width: 80%;
+  
+}
+#img-anazir{
+    top: 10vh;
+    left: 95vh;
+
+    transition: filter 0.3s linear, transform 1.3s cubic-bezier(0, 0.75, 0.19, 1);
+
+    width: 281px;  
+    height: 200px;
+    bottom: 0;
+    right: 0;
+   
+}
+#img-more{
+    top: 60vh;
+    left: 15vh;
+    transition: filter 0.3s linear, transform 1.4s cubic-bezier(0, 0.75, 0.19, 1);
+   
+    width: 281px;  
+    height: 200px;
+    bottom: 0;
+    right: 0;
+   
+}
+
+/* cursor*/
+#cursor{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    
+    
+}
+#cursor *{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    transition: width 1.5s cubic-bezier(0, 0.30, 0.19, 1) , height 1.5s cubic-bezier(0, 0.30, 0.19, 1) , transform 1s;
+    
+}
+
+#main-img-container{
+    
+    position: relative;
+    height: 100vh;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-color: red;
+}
+
+#detail-btn{
+    position: absolute;
+    bottom: 40px;
+    font-size: 20px;
+    font-family: Roboto;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    z-index: 20;
+
+}
+/*#detail-btn::after{
+    content: "";
+    width: 110%;
+    position: absolute;
+    background-color: #FFF2DE;
+    height: 1px;
+    bottom: -3px;
+}
+#detail-btn:hover:after{
+   background-color: red;
+}*/
