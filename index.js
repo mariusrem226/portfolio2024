@@ -14,7 +14,10 @@ const cursor_elt_3 = document.getElementById('cursor-elt-3');
 const HEIGHT_LETTER_CELL = 70;
 
 //details button
-const detailBtn = document.getElementById('detail-btn');
+const detail_btn = document.getElementById('detail-btn');
+const detail_section = document.getElementById('detail-section');
+const detail_mf = document.getElementById('mf-details');
+
 
 //get cols name
 
@@ -51,12 +54,16 @@ var selector_1 = gallery_mf.querySelector('.selector-1');
 var selector_2 = gallery_mf.querySelector('.selector-2');
 var selector_3 = gallery_mf.querySelector('.selector-3');
 var imgSelected = 1;
+var outline_selected=document.getElementById("outline-selected");
+var selected_translation=0;
 
 function initSelectorClick() {
   selector_1.addEventListener('click', () => {
     const oldSelected=imgSelected;
     imgSelected = 1;
     if (oldSelected != 1) {
+    moveOutlineSelected(selector_1);
+
       if (oldSelected === 3) {
         goBottom(img_mf_3);
         img_mf_2.style.transition="none";
@@ -77,6 +84,8 @@ function initSelectorClick() {
     const oldSelected=imgSelected;
     imgSelected = 2;
     if (oldSelected != 2) {
+    moveOutlineSelected(selector_2);
+
       if (oldSelected === 1) {
         goTop(img_mf_1);
         centerFromTheBottom(img_mf_2);
@@ -94,6 +103,8 @@ function initSelectorClick() {
     const oldSelected=imgSelected;
     imgSelected = 3;
     if (oldSelected != 3) {
+      moveOutlineSelected(selector_3);
+
       if (oldSelected === 1) {
        goTop(img_mf_1);
        img_mf_2.style.transition="none";
@@ -171,10 +182,10 @@ function initMainImages() {
   img_more.style.transform = "translateX(-1000px)";
 }
 function initBottomBtn() {
-  detailBtn.style.transform = "translateY(100px)";
+  detail_btn.style.transform = "translateY(25px)";
 
-  detailBtn.addEventListener('click', () => {
-    showDetailAnimation();
+  detail_btn.addEventListener('click', () => {
+    showDetailAnimation(detail_mf);
     console.log("ici");
   })
 }
@@ -281,9 +292,11 @@ function showMainImagesAnimation() {
   img_more.style.transform = "translateY(0)";
 }
 function showDetailBtnAnimation() {
-  detailBtn.animate({
-    transform: "translateY(0px)"
-  }, { duration: 500, fill: "forwards", easing: "cubic-bezier(0, 0.30, 0.19, 1)" });
+  detail_btn.style.transform="translateY(0px)";
+  
+}
+function collapseDetailBtnAnimation(){
+  detail_btn.style.transform="translateY(-25px)"
 }
 function collapseTBQT() {
   tb_qt_1.animate({
@@ -299,15 +312,22 @@ function collapseTBQT() {
     width: 0
   }, { duration: 1000, fill: "forwards", easing: "cubic-bezier(0, 0.30, 0.19, 1)" });
 }
-function showDetailAnimation() {
+function showDetailAnimation(details) {
+  
   allColEmply();
   setTimeout(collapseTBQT, 100);
   putMainImageFullScreen();
+  
   setTimeout(revealBigTitle, 450);
+  setTimeout(collapseDetailBtnAnimation, 450);
   setTimeout(showGallery, 1500);
-
+  setTimeout(showDetails, 2500, detail_mf);
+  
 }
-
+function showDetails(details){
+  const details_container=details.querySelector(".details-container");
+  details_container.style.transform="translateY(0px)";
+}
 function showGallery() {
   gallery_container.style.display = "inline";
   img_mf_1.style.transform = "translateY(1000px)";
@@ -327,7 +347,28 @@ function showGallery() {
   setTimeout(moveToCenterGallery, delay, selector_1);
   setTimeout(moveToCenterGallery, delay + 50, selector_2);
   setTimeout(moveToCenterGallery, delay + 100, selector_3);
+  setTimeout(initOutlineSelected, delay + 1100);
 
+
+
+}
+
+function moveOutlineSelected(elt){
+    const position = elt.getBoundingClientRect();
+    const outline_rect=outline_selected.getBoundingClientRect();
+    const target=position.top-outline_rect.top ;
+    console.log(target, selected_translation);
+
+    outline_selected.style.transform="translateY("+(selected_translation+target)+ "px)";
+
+    selected_translation+=target;
+}
+
+function initOutlineSelected(){
+  //moveOutlineSelected(selector_1);
+  
+  outline_selected.style.opacity=1;
+  
 }
 
 function moveToCenterGallery(img) {
@@ -407,8 +448,8 @@ function initOnClickImages() {
 function startHoverMainImageAnimation(img) {
 
   const rect = img.getBoundingClientRect();
-  const imageLeft = rect.left - 0.15 * rect.width; // Account for any scrolling
-  const imageTop = (rect.top - 0.5 * rect.height - 0.15 * rect.width);   // Account for any scrolling
+  const imageLeft = rect.left -0.15*rect.width; // Account for any scrolling
+  const imageTop = (rect.top - 0.5 * rect.height );   // Account for any scrolling
 
   // Move the cursor to the image's position
   cursor.animate({
