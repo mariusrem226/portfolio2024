@@ -69,6 +69,7 @@ var selected_translation=0;
 
 //top button
 var btn_back= document.getElementById("btn-back");
+var backClickfunction;
 
 
 
@@ -139,14 +140,14 @@ function initSelectorClick() {
 function centerFromTheTop(img){
   img.style.transition="none";
   img.style.transform="translateY(-1000px)";
-  img.style.transition="transform 1s cubic-bezier(0,.21,0,1)";
+  img.style.transition="transform 1s ease-out";
   img.style.transform="translateY(0px)";
   //img.style.transition="none";
 }
 function centerFromTheBottom(img){
   img.style.transition="none";
   img.style.transform="translateY(1000px)";
-  img.style.transition="transform 1s cubic-bezier(0,.21,0,1)";
+  img.style.transition="transform 1s ease-out";
   img.style.transform="translateY(0px)";
   //img.style.transition="none";
 }
@@ -189,41 +190,80 @@ function allColEmpty() {
 
 //function to init image position
 function initMainImages() {
-  img_mf_container.style.transform = "translateY(1000px)";
-  img_anazir_container.style.transform = "translateY(-1000px)";
-  img_more.style.transform = "translateX(-1000px)";
+  img_mf_container.style.transform = "translate(100vw, 70vh)";
+  img_anazir_container.style.transform = "translate(60vw, -100%)";
+  img_more.style.transform = "translate(10vw, 100vh)";
 }
 function initBottomBtn() {
   detail_btn.style.transform = "translateY(25px)";
 
   
 }
-function setDetailBtnClick(details, img, title){
+function setDetailBtnClick(details, img, title, functionShowCentralText, top, left){
   
   detail_btn.addEventListener('click', () => {
-    console.log(details, img, title)
-    showDetailAnimation(details, img, title);
-   
-  })
-}
-function setCloseDetailBtnClick(details, img, title, functionShowCentralText, top, left){
-  console.log(title)
-  btn_back.addEventListener('click', () => {
-    closeDetailAnimation(details, img, title,functionShowCentralText );
-    setUnselectBtnClick(img, top, left);
     
+
+    showDetailAnimation(details, img.querySelector(".img-project"), title);
+    setCloseDetailBtnClick(details, img, title, functionShowCentralText, top, left);
   })
 }
-
-function setUnselectBtnClick(img, top, left){
-  
-  btn_back.addEventListener('click', () => {
-    unPutImageInFront(img, top, left);
-    showNameAnimation()
-    rotate_tbqt()
-  })
+function updateBackButtonListener() {
+  console.log("updateBackButtonListener called");
+  // Always remove the old listener
+  btn_back.removeEventListener('click', handleBackClick);
+  // Add the new listener
+  btn_back.addEventListener('click', handleBackClick);
+}
+function handleBackClick(event) {
+ 
+  console.log("Back button clicked");
+  if (backClickfunction) {
+    backClickfunction(event);
+  }
+}
+function setCloseDetailBtnClick(details, img, title, functionShowCentralText, top, left) {
+  backClickfunction = () => {
+    closeDetailFunction(details, img, title, functionShowCentralText, top, left);
+  };
+  updateBackButtonListener();
 }
 
+function setUnselectBtnClick(details, img, title, functionShowCentralText, top, left) {
+  console.log("setUnselectBtnClick called");
+  backClickfunction = () => {
+    console.log("unselectBtnClick function called");
+    unSelectFunction(details, img, title, functionShowCentralText, top, left);
+  };
+  updateBackButtonListener();
+}
+
+const unSelectFunction = (details, img, title, functionShowCentralText, top, left) => {
+  console.log("caca")
+
+  unselectAnimation(img, top, left);
+};
+
+const closeDetailFunction = (details, img, title, functionShowCentralText, top, left) => {
+  console.log("dans le close");
+  closeDetailAnimation(details, img, title, functionShowCentralText);
+  setUnselectBtnClick(details, img, title, functionShowCentralText, top, left);
+};
+
+function unselectAnimation( img, top, left ){
+  console.log("unselectAnim");
+  collapseBackBtnAnimation();
+  unPutImageInFront(img, top, left);
+  collapseDetailBtnAnimation();
+  showNameAnimation();
+  console.log("jusquici", img_mf_container);
+  initImagesOverEffect();
+  cursor.style.zIndex = "0";
+  rotate_tbqt();
+  initOnClickImages();
+
+}
+updateBackButtonListener();
 
 // Function to update the loader
 function updateLoader(unit, ten, hundred) {
@@ -284,6 +324,19 @@ function rotate_tbqt() {
 
 
 }
+function reverse_rotate_tbqt() {
+  tb_qt_1.animate({
+    transform: "rotate(0)",
+  }, { duration: 1000, easing: "cubic-bezier(0, 0.30, 0.19, 1)" });
+  tb_qt_2.animate({
+    transform: "rotate(0)",
+  }, { duration: 1000, easing: "cubic-bezier(0, 0.30, 0.19, 1)" });
+  tb_qt_3.animate({
+    transform: "rotate(0)",
+  }, { duration: 1000, easing: "cubic-bezier(0, 0.30, 0.19, 1)" });
+
+
+}
 
 function rotate_cursor(factor) {
   cursor_elt_1.style.transform = "rotate(" + 45 * factor + "deg)"
@@ -307,6 +360,7 @@ function showNameAnimation() {
 
 }
 function showMobileFoodTextAnimation() {
+
   col_1.style.transform = "translateY(" + 0 + "px)";
   col_2.style.transform = "translateY(" + 0 * HEIGHT_LETTER_CELL + "px)";
   col_3.style.transform = "translateY(" + -1 * HEIGHT_LETTER_CELL + "px)";
@@ -335,9 +389,9 @@ function showAnazirTextAnimation(){
   rotate_tbqt();
 }
 function showMainImagesAnimation() {
-  img_mf_container.style.transform = "translateY(0)";
-  img_anazir_container.style.transform = "translateY(0)";
-  img_more.style.transform = "translateY(0)";
+  img_mf_container.style.transform = "translate(70vw, 70vh)";
+  img_anazir_container.style.transform = "translate(60vw, 10vh)";
+  img_more.style.transform = "translate(10vw, 70vh)";
 }
 function showDetailBtnAnimation() {
   detail_btn.style.transform="translateY(0px)";
@@ -345,6 +399,13 @@ function showDetailBtnAnimation() {
 }
 function collapseDetailBtnAnimation(){
   detail_btn.style.transform="translateY(-25px)"
+}
+function showBackBtnAnimation() {
+  btn_back.style.transform="translateY(0px)";
+  
+}
+function collapseBackBtnAnimation(){
+  btn_back.style.transform="translateY(-25px)"
 }
 function collapseTBQT() {
   tb_qt_1.animate({
@@ -365,7 +426,7 @@ function closeDetailAnimation(details, img, title, functionShowCentralText){
   hideDetails(details);
   setTimeout(hideGallery, 50);
   setTimeout(hideBigTitle, 50, title);
-  setTimeout(unPutMainImageFullScreen, 200, img);
+  setTimeout(unPutMainImageFullScreen, 200, img.querySelector(".img-project"));
   setTimeout(showTBQT, 250);
   
   setTimeout(showDetailBtnAnimation, 400);
@@ -391,6 +452,8 @@ function hideBigTitle(title){
   const listLetter = title.getElementsByClassName("big-letter");
   const size = listLetter.length;
   translateBigLetter(300,i, size, listLetter);
+  setTimeout( ()=>{title.style.display="none"}, 400);
+
 }
 
 function unPutMainImageFullScreen(img) {
@@ -422,7 +485,7 @@ function showDetailAnimation(details, img, title) {
   
   allColEmpty();
   setTimeout(collapseTBQT, 100);
-  console.log("imahe", img);
+
   putMainImageFullScreen(img);
   
   setTimeout(revealBigTitle, 450, title);
@@ -516,10 +579,12 @@ function putMainImageFullScreen(img) {
   
 }
 function initImagesOverEffect() {
+  console.log("dans le initoHover");
   list_main_images.forEach(elt => {
     elt.style.filter = "grayscale(100%)"
-    elt.addEventListener('mouseenter', () => { elt.style.filter = "grayscale(0%)"; mouseEnterImageHandler(elt) });
+    elt.addEventListener('mouseenter', () => {console.log("ici"), elt.style.filter = "grayscale(0%)"; mouseEnterImageHandler(elt) });
     elt.addEventListener('mouseleave', () => { elt.style.filter = "grayscale(100%)"; endHoverMainImageAnimation(elt) });
+    console.log("laaaaaaa", elt);
   });
 }
 
@@ -544,7 +609,7 @@ function reAssaignMainImages(){
 }
 
 function initOnClickImages() {
-
+  console.log("dans le initOnClick", img_mf_container);
   img_anazir_container.addEventListener('click', function (e) {
     clickOnAnazir();
   });
@@ -552,6 +617,7 @@ function initOnClickImages() {
     clickOnMore();
   });
   img_mf_container.addEventListener('click', function (e) {
+   
     clickOnMobileFood();
   });
 
@@ -560,21 +626,22 @@ function initOnClickImages() {
 function startHoverMainImageAnimation(img) {
 
   const rect = img.getBoundingClientRect();
-  const imageLeft = rect.left -0.15*rect.width; // Account for any scrolling
-  const imageTop = (rect.top - 0.5 * rect.height );   // Account for any scrolling
+  const rectCursor=cursor.getBoundingClientRect();
+  const imageLeft = ((rect.left+0.5*rect.width)-(0.5*rectCursor.width)) ; // Account for any scrolling
+  const imageTop = (rect.top +0.5*rect.height  )-0.5*rectCursor.height;   // Account for any scrolling
 
   // Move the cursor to the image's position
   cursor.animate({
     left: `${imageLeft}px`,
     top: `${imageTop}px`
   }, {
-    duration: 800, fill: "forwards",
+    duration: 500, fill: "forwards",
     easing: "cubic-bezier(0, 0.30, 0.19, 1)"
   }); // Adjust duration as needed
   for (const child of cursor.children) {
 
-    child.style.width = `${rect.width * 1.30}px`;
-    child.style.height = `${rect.width * 1.30}px`;
+    child.style.width = `${280 }px`;
+    child.style.height = `${280 }px`;
 
 
   }
@@ -617,7 +684,7 @@ function clickOnAnazir() {
 
   setDetailBtnClick(detail_mf, img_anazir, big_title_anazir);
   setCloseDetailBtnClick(detail_mf, img_anazir, big_title_anazir, showAnazirTextAnimation, "10vh", "95vh");
-  cursor.style.zIndex = "10"
+  cursor.style.zIndex = "10";
 
   img_more.animate({
     transform: "translateX(-1000px)"
@@ -650,36 +717,35 @@ function clickOnMore() {
 function clickOnMobileFood() {
   removeImagesOverEffect();
   endHoverMainImageAnimation(img_mf_container);
-  setDetailBtnClick(detail_mf, img_mf, big_title_mf);
-  setCloseDetailBtnClick(detail_mf, img_mf, big_title_mf, showMobileFoodTextAnimation, "70vh", "70vw");
-
+  setDetailBtnClick(detail_mf, img_mf_container, big_title_mf, showMobileFoodTextAnimation, "70vh", "70vw");
+  setUnselectBtnClick(detail_mf, img_mf_container, big_title_mf, showMobileFoodTextAnimation, "70vh", "70vw");
+ 
   cursor.style.zIndex = "10"
+  //img_mf_container.style.transform = "translate(100vw, 70vh)";
+  img_anazir_container.style.transform = "translate(60vw, -100%)";
+  img_more.style.transform = "translate(10vw, 100vh)";
+  
+  
+  setTimeout(putImageInFront, 1000, img_mf_container);
+  setTimeout(showMobileFoodTextAnimation, 200); 
 
-  img_anazir_container.animate({
-    transform: "translateY(-1000px)"
-  }, { duration: 1000, fill: "forwards", easing: "cubic-bezier(0, 0.30, 0.19, 1)" })
-  img_more.animate({
-    transform: "translateX(-1000px)"
-  }, { duration: 1000, fill: "forwards", easing: "cubic-bezier(0, 0.30, 0.19, 1)" });
-  setTimeout(putImageInFront, 10, img_mf_container);
-  setTimeout(showMobileFoodTextAnimation, 400);
   setTimeout(showDetailBtnAnimation, 400);
+  setTimeout(showBackBtnAnimation, 400);
 }
 function putImageInFront(img) {
   
   img.style.transition="all 300ms ease-in";
+  img.style.transform="translate(0,0)";
   
-  img.style.left=0;
-  img.style.top=0;
   img.style.height="100vh";
   img.style.width="100vw";
   
 }
 function unPutImageInFront(img, top, left){
+  console.log("coucou3", img, top, left);
   img.style.transition="all 300ms ease-in";
+  showMainImagesAnimation()
   
-  img.style.left=top;
-  img.style.top=top;
   img.style.height="200px";
   img.style.width="281px";
 }
