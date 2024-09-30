@@ -136,7 +136,7 @@ html, body{
     z-index: 2;
    
    
-    transition: filter 0.3s linear, transform 1s ;
+    transition: filter 0.3s linear, transform 1s cubic-bezier(0,.1,0,1);
     
     width: 281px;  
     height: 200px;
@@ -172,8 +172,7 @@ html, body{
 
 /* cursor*/
 #cursor{
-    width: 20px;
-    height: 20px;
+    
     position: absolute;
    
     
@@ -390,3 +389,15 @@ html, body{
     cursor: pointer;
 }
 
+@keyframes pulse {
+    0%, 100% {
+      scale: 1;
+    }
+    50% {
+      scale: 1.1;
+    }
+  }
+  
+  .pulser {
+    animation: pulse 3s ease-in-out infinite;
+  }

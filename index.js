@@ -372,7 +372,7 @@ function showMobileFoodTextAnimation() {
   col_9.style.transform = "translateY(" + -1 * HEIGHT_LETTER_CELL + "px)";
   col_10.style.transform = "translateY(" + -1 * HEIGHT_LETTER_CELL + "px)";
   col_11.style.transform = "translateY(" + -1 * HEIGHT_LETTER_CELL + "px)";
-  rotate_tbqt();
+  //rotate_tbqt();
 }
 function showAnazirTextAnimation(){
   col_1.style.transform = "translateY(" + -1* HEIGHT_LETTER_CELL + "px)";
@@ -627,9 +627,9 @@ function startHoverMainImageAnimation(img) {
 
   const rect = img.getBoundingClientRect();
   const rectCursor=cursor.getBoundingClientRect();
-  const imageLeft = ((rect.left+0.5*rect.width)-(0.5*rectCursor.width)) ; // Account for any scrolling
-  const imageTop = (rect.top +0.5*rect.height  )-0.5*rectCursor.height;   // Account for any scrolling
-
+  const imageLeft = ((rect.left+0.5*rect.width))  ; // Account for any scrolling
+  const imageTop = (rect.top +0.5*rect.height  );   // Account for any scrolling
+  
   // Move the cursor to the image's position
   cursor.animate({
     left: `${imageLeft}px`,
@@ -638,29 +638,60 @@ function startHoverMainImageAnimation(img) {
     duration: 500, fill: "forwards",
     easing: "cubic-bezier(0, 0.30, 0.19, 1)"
   }); // Adjust duration as needed
+ 
+  var delay=3;
   for (const child of cursor.children) {
 
     child.style.width = `${280 }px`;
     child.style.height = `${280 }px`;
-
-
+    setTimeout(()=>{child.style.animation = 'pulse '+delay+'s ease-in-out infinite';delay+=0.5},300 );
+    
+    
   }
+
   rotate_cursor(1);
+  showMobileFoodTextAnimation();
 }
 
 function endHoverMainImageAnimation(img) {
   document.body.addEventListener('pointermove', pointerMoveHandler);
 
   for (const child of cursor.children) {
+    //child.style.animation ="";
     child.style.height = "20px";
     child.style.width = "20px";
   }
   rotate_cursor(-1);
+  showNameAnimation();
+
 
 }
 
 const pointerMoveHandler = event => {
   const { clientX, clientY } = event;
+  let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+  let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
+
+  var xForTBQT=(clientX/vw -0.5)*50;
+  var yForTBQT=(clientY/vh -0.5)*20;
+  console.log(clientX/tb_qt_1.getBoundingClientRect().width)
+  tb_qt_1.animate({
+    transform: `translate(${-xForTBQT}px,${yForTBQT}px)`,
+   
+    //margin: `${clientY}px`
+  }, { duration: 3000, fill: "forwards" });
+  tb_qt_2.animate({
+    transform: `translate(${-xForTBQT}px,${-yForTBQT}px)`,
+
+    
+    //margin: `${clientY}px`
+  }, { duration: 3000, fill: "forwards" });
+  tb_qt_3.animate({
+    transform: `translate(${xForTBQT}px,${-yForTBQT}px)`,
+
+   
+    //margin: `${clientY}px`
+  }, { duration: 3000, fill: "forwards" });
 
   cursor.animate({
     left: `${clientX}px`,
@@ -722,11 +753,12 @@ function clickOnMobileFood() {
  
   cursor.style.zIndex = "10"
   //img_mf_container.style.transform = "translate(100vw, 70vh)";
-  img_anazir_container.style.transform = "translate(60vw, -100%)";
-  img_more.style.transform = "translate(10vw, 100vh)";
+  setTimeout(()=>{img_anazir_container.style.transform = "translate(60vw, -100%)"}, 100);
+  setTimeout(()=>{img_more.style.transform = "translate(10vw, 100vh)";}, 100);
   
   
-  setTimeout(putImageInFront, 1000, img_mf_container);
+  
+  setTimeout(putImageInFront, 100, img_mf_container);
   setTimeout(showMobileFoodTextAnimation, 200); 
 
   setTimeout(showDetailBtnAnimation, 400);
@@ -734,7 +766,7 @@ function clickOnMobileFood() {
 }
 function putImageInFront(img) {
   
-  img.style.transition="all 300ms ease-in";
+  img.style.transition="all 1s cubic-bezier(.8,0,.20,1)";
   img.style.transform="translate(0,0)";
   
   img.style.height="100vh";
@@ -743,7 +775,7 @@ function putImageInFront(img) {
 }
 function unPutImageInFront(img, top, left){
   console.log("coucou3", img, top, left);
-  img.style.transition="all 300ms ease-in";
+  img.style.transition="all 1s cubic-bezier(.8,0,.20,1)";
   showMainImagesAnimation()
   
   img.style.height="200px";
