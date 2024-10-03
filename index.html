@@ -45,17 +45,26 @@
         </div>
     </div>
     <div id="app">
-        <svg width="60" height="61" viewBox="0 0 30 61" fill="#FFF2DE" xmlns="http://www.w3.org/2000/svg">
-            <path  stroke="#FFF2DE" fill="#333">
-            <animate   id="animation"   repeatCount="indefinite"   attributeName="d"   dur="5s"   
-            values="M1 15.5V1H5.5H10V15.5V62H1V15.5Z;M1 21.5L6 7L10.5 1L15 7L19.5 21.5L15 68H6L1 21.5Z"/>  </path>      
-        </svg>
-        <svg  width="60" height="61" viewBox="0 0 30 60" fill="#FFF2DE" xmlns="http://www.w3.org/2000/svg"  >
-            <path stroke="#FFF2DE" fill="#333">
-              <animate id="animation-to-check" repeatCount="indefinite" attributeName="d" dur="5s"
-              values="M15 1V15.5V62M15 1L1 26M15 1L30 26;M1 0V14.5V61M1 0V26.5M1 0V25"></path>      
-          </svg>
+        
         <div id="btn-top">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="40" viewBox="0 0 25 7">
+                <path fill="#fffcf8" d="M 12.5 20 L 11.5 20 L 11.5 20 L 13.5 20 L 13.5 20 L 12.5 20 L 12.5 1 z">
+                    <animate id="animation-forward" fill="freeze" attributeName="d" dur="0.8s" begin="indefinite"
+                    values="
+                    M 12.5 20 L 11.5 20 L 11.5 20 L 13.5 20 L 13.5 20 L 12.5 20 L 12.5 1 z;
+                    M 12.5 20 L 11.5 20 L 11.5 0 L 14 0 L 13.5 20 L 12.5 20 L 12.5 1 z;
+                    M 3 7 L 0 7 L 12.5 0 L 12.5 0 L 25 7 L 22 7 L 12.5 1.75 z;              "/>
+                    <animate id="animation-backward" fill="freeze" attributeName="d" dur="0.8s" begin="indefinite"
+                    values="
+                    M 3 7 L 0 7 L 12.5 0 L 12.5 0 L 25 7 L 22 7 L 12.5 1.75 z;
+                    M 12.5 20 L 11.5 20 L 11.5 0 L 14 0 L 13.5 20 L 12.5 20 L 12.5 1 z;
+                    M 12.5 20 L 11.5 20 L 11.5 20 L 13.5 20 L 13.5 20 L 12.5 20 L 12.5 1 z;             "/>
+
+                  
+                </path>
+    
+                
+            </svg>
             <div id="btn-back">
                 Back
             </div>
@@ -152,8 +161,6 @@
                 </div>
                 <div id="img-anazir" >
                     <div class="img-project"></div>
-                    
-
                 </div>
                 <div id="img-more">
                     <div class="img-project"></div>

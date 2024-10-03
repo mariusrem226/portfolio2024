@@ -70,6 +70,9 @@ var selected_translation=0;
 //top button
 var btn_back= document.getElementById("btn-back");
 var backClickfunction;
+const animation_SVG_forward = document.getElementById('animation-forward');
+const animation_SVG_backward = document.getElementById('animation-backward');
+
 
 
 
@@ -402,10 +405,13 @@ function collapseDetailBtnAnimation(){
 }
 function showBackBtnAnimation() {
   btn_back.style.transform="translateY(0px)";
+  setTimeout(()=>{animation_SVG_forward.beginElement()},200);
   
 }
 function collapseBackBtnAnimation(){
-  btn_back.style.transform="translateY(-25px)"
+  btn_back.style.transform="translateY(25px)"
+  setTimeout(()=>{animation_SVG_backward.beginElement()},0);
+
 }
 function collapseTBQT() {
   tb_qt_1.animate({
@@ -451,16 +457,19 @@ function hideBigTitle(title){
   var i = 0;
   const listLetter = title.getElementsByClassName("big-letter");
   const size = listLetter.length;
-  translateBigLetter(300,i, size, listLetter);
-  setTimeout( ()=>{title.style.display="none"}, 400);
+  for (letter of listLetter){
+    letter.style.transition="all 900ms cubic-bezier(0, 0.30, 0.19, 1)";
+    letter.style.transform="translateX(-300px)";
+  }
+  setTimeout( ()=>{title.style.bottom="100%"}, 400);
 
 }
 
 function unPutMainImageFullScreen(img) {
   img.style.transition="all 300ms ease-in";
 
-  img.style.maxHeight="70%";
-  img.style.width="80%";
+  //img.style.maxHeight="70%";
+  //img.style.width="80%";
   img.style.filter="blur(0px)";
 }
 function showTBQT(){
@@ -519,7 +528,7 @@ function showGallery() {
   setTimeout(moveToCenterGallery, delay, selector_1);
   setTimeout(moveToCenterGallery, delay + 50, selector_2);
   setTimeout(moveToCenterGallery, delay + 100, selector_3);
-  setTimeout(initOutlineSelected, delay + 1100);
+  setTimeout(initOutlineSelected, delay + 1100);/**/
 
 
 
@@ -548,32 +557,24 @@ function moveToCenterGallery(img) {
 }
 function revealBigTitle(title) {
   var i = 0;
-  title.style.display = "flex";
+  title.style.bottom = 0;
   const listLetter = title.getElementsByClassName("big-letter");
   const size = listLetter.length;
-  translateBigLetter(0,i, size, listLetter);
-
-}
-
-function translateBigLetter(dist,i, size, listLetter) {
-  if (i < size) {
-    listLetter[i].animate(
-      {
-        transform: "translateX("+dist+"px)",
-      },
-      {
-        duration: 750, fill: "forwards",
-        easing: "cubic-bezier(0, 0.30, 0.19, 1)"
-      });
-    setTimeout(translateBigLetter, 0,dist, i + 1, size, listLetter);
+ // translateBigLetter(0,i, size, listLetter);
+  for (letter of listLetter){
+    letter.style.transition="all 1100ms cubic-bezier(0, 0.30, 0.19, 1)";
+    letter.style.transform="translateX("+0+"px)";
   }
-
 }
+
+
+
+
 function putMainImageFullScreen(img) {
   img.style.transition="all 300ms ease-in";
 
-  img.style.maxHeight="100%";
-  img.style.width="100%";
+  //img.style.maxHeight="100%";
+  //img.style.width="100%";
   img.style.filter="blur(80px)";
   
   
@@ -672,26 +673,25 @@ const pointerMoveHandler = event => {
   let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
   let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
 
-  var xForTBQT=(clientX/vw -0.5)*50;
+  var xForTBQT=(clientX/vw -0.5)*30;
   var yForTBQT=(clientY/vh -0.5)*20;
-  console.log(clientX/tb_qt_1.getBoundingClientRect().width)
   tb_qt_1.animate({
     transform: `translate(${-xForTBQT}px,${yForTBQT}px)`,
    
     //margin: `${clientY}px`
-  }, { duration: 3000, fill: "forwards" });
+  }, { duration: 1000, fill: "forwards" });
   tb_qt_2.animate({
     transform: `translate(${-xForTBQT}px,${-yForTBQT}px)`,
 
     
     //margin: `${clientY}px`
-  }, { duration: 3000, fill: "forwards" });
+  }, { duration: 1000, fill: "forwards" });
   tb_qt_3.animate({
     transform: `translate(${xForTBQT}px,${-yForTBQT}px)`,
 
    
     //margin: `${clientY}px`
-  }, { duration: 3000, fill: "forwards" });
+  }, { duration: 1000, fill: "forwards" });
 
   cursor.animate({
     left: `${clientX}px`,
@@ -713,20 +713,19 @@ function clickOnAnazir() {
   removeImagesOverEffect();
   endHoverMainImageAnimation(img_anazir_container);
 
-  setDetailBtnClick(detail_mf, img_anazir, big_title_anazir);
-  setCloseDetailBtnClick(detail_mf, img_anazir, big_title_anazir, showAnazirTextAnimation, "10vh", "95vh");
+  setDetailBtnClick(detail_mf, img_anazir_container, big_title_anazir, showAnazirTextAnimation, "10vh", "95vh");
+  setCloseDetailBtnClick(detail_mf, img_anazir_container, big_title_anazir, showAnazirTextAnimation, "10vh", "95vh");
   cursor.style.zIndex = "10";
 
-  img_more.animate({
-    transform: "translateX(-1000px)"
-  }, { duration: 1000, fill: "forwards", easing: "cubic-bezier(0, 0.30, 0.19, 1)" })
-  img_mf_container.animate({
-    transform: "translateY(1000px)"
-  }, { duration: 1000, fill: "forwards", easing: "cubic-bezier(0, 0.30, 0.19, 1)" });
-  setTimeout(putImageInFront, 10, img_anazir_container);
+  setTimeout(()=>{img_mf_container.style.transform = "translate(100vw, 70vh)"}, 100);
+  setTimeout(()=>{img_more.style.transform = "translate(10vw, 100vh)";}, 100);
+
+  
+  setTimeout(putImageInFront, 100, img_anazir_container);
   setTimeout(showAnazirTextAnimation, 400);
 
   setTimeout(showDetailBtnAnimation, 400);
+  setTimeout(showBackBtnAnimation, 400);
 }
 
 
@@ -735,12 +734,9 @@ function clickOnMore() {
   endHoverMainImageAnimation(img_more);
   cursor.style.zIndex = "10"
 
-  img_anazir_container.animate({
-    transform: "translateY(-1000px)"
-  }, { duration: 1000, fill: "forwards", easing: "cubic-bezier(0, 0.30, 0.19, 1)" })
-  img_mf_container.animate({
-    transform: "translateY(1000px)"
-  }, { duration: 1000, fill: "forwards", easing: "cubic-bezier(0, 0.30, 0.19, 1)" });
+ 
+
+  
   setTimeout(putImageInFront, 10, img_more);
 
 }
@@ -766,11 +762,20 @@ function clickOnMobileFood() {
 }
 function putImageInFront(img) {
   
+
   img.style.transition="all 1s cubic-bezier(.8,0,.20,1)";
   img.style.transform="translate(0,0)";
+
   
+  
+
   img.style.height="100vh";
+  
+
   img.style.width="100vw";
+  
+  
+
   
 }
 function unPutImageInFront(img, top, left){
@@ -782,7 +787,7 @@ function unPutImageInFront(img, top, left){
   img.style.width="281px";
 }
 
-  
+
 // Start the simulation
 document.body.addEventListener('pointermove', pointerMoveHandler);
 
