@@ -171,7 +171,7 @@ function initCol() {
   col_2.style.transform = "translateY(" + HEIGHT_LETTER_CELL + "px)";
   col_3.style.transform = "translateY(" + -4 * HEIGHT_LETTER_CELL + "px)";
   col_4.style.transform = "translateY(" + -2 * HEIGHT_LETTER_CELL + "px)";
-  col_8.style.transform = "translateY(" + -4 * HEIGHT_LETTER_CELL + "px)";
+  col_8.style.transform = "translateY(" + -7 * HEIGHT_LETTER_CELL + "px)";
   col_9.style.transform = "translateY(" + HEIGHT_LETTER_CELL + "px)";
   col_10.style.transform = "translateY(" + -4 * HEIGHT_LETTER_CELL + "px)";
   col_11.style.transform = "translateY(" + HEIGHT_LETTER_CELL + "px)";
@@ -363,6 +363,8 @@ function showNameAnimation() {
 
 }
 function showMobileFoodTextAnimation() {
+  
+  
 
   col_1.style.transform = "translateY(" + 0 + "px)";
   col_2.style.transform = "translateY(" + 0 * HEIGHT_LETTER_CELL + "px)";
@@ -371,10 +373,10 @@ function showMobileFoodTextAnimation() {
   col_5.style.transform = "translateY(" + -1 * HEIGHT_LETTER_CELL + "px)";
   col_6.style.transform = "translateY(" + -2 * HEIGHT_LETTER_CELL + "px)";
   col_7.style.transform = "translateY(" + HEIGHT_LETTER_CELL + "px)";
-  col_8.style.transform = "translateY(" + -1 * HEIGHT_LETTER_CELL + "px)";
-  col_9.style.transform = "translateY(" + -1 * HEIGHT_LETTER_CELL + "px)";
+  col_8.style.transform = "translateY(" + -5 * HEIGHT_LETTER_CELL + "px)";
+  col_9.style.transform = "translateY(" + -3 * HEIGHT_LETTER_CELL + "px)";
   col_10.style.transform = "translateY(" + -1 * HEIGHT_LETTER_CELL + "px)";
-  col_11.style.transform = "translateY(" + -1 * HEIGHT_LETTER_CELL + "px)";
+  col_11.style.transform = "translateY(" + -2 * HEIGHT_LETTER_CELL + "px)";
   //rotate_tbqt();
 }
 function showAnazirTextAnimation(){
@@ -654,19 +656,24 @@ function startHoverMainImageAnimation(img) {
   showMobileFoodTextAnimation();
 }
 
-function endHoverMainImageAnimation(img) {
-  document.body.addEventListener('pointermove', pointerMoveHandler);
+function endHoverMainImageAnimation() {
 
+  endCursorHoverAnimation();
+  document.body.addEventListener('pointermove', pointerMoveHandler);
+  showNameAnimation();
+}
+
+
+function endCursorHoverAnimation(){
   for (const child of cursor.children) {
     //child.style.animation ="";
     child.style.height = "20px";
     child.style.width = "20px";
   }
   rotate_cursor(-1);
-  showNameAnimation();
-
-
 }
+
+
 
 const pointerMoveHandler = event => {
   const { clientX, clientY } = event;
@@ -743,11 +750,12 @@ function clickOnMore() {
 
 function clickOnMobileFood() {
   removeImagesOverEffect();
-  endHoverMainImageAnimation(img_mf_container);
+  endCursorHoverAnimation();
+  document.body.addEventListener('pointermove', pointerMoveHandler);
   setDetailBtnClick(detail_mf, img_mf_container, big_title_mf, showMobileFoodTextAnimation, "70vh", "70vw");
   setUnselectBtnClick(detail_mf, img_mf_container, big_title_mf, showMobileFoodTextAnimation, "70vh", "70vw");
  
-  cursor.style.zIndex = "10"
+  cursor.style.zIndex = "10";
   //img_mf_container.style.transform = "translate(100vw, 70vh)";
   setTimeout(()=>{img_anazir_container.style.transform = "translate(60vw, -100%)"}, 100);
   setTimeout(()=>{img_more.style.transform = "translate(10vw, 100vh)";}, 100);
@@ -755,7 +763,7 @@ function clickOnMobileFood() {
   
   
   setTimeout(putImageInFront, 100, img_mf_container);
-  setTimeout(showMobileFoodTextAnimation, 200); 
+  //setTimeout(showMobileFoodTextAnimation, 200); 
 
   setTimeout(showDetailBtnAnimation, 400);
   setTimeout(showBackBtnAnimation, 400);

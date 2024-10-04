@@ -90,11 +90,6 @@ html, body{
     
     display: flex;
     flex-direction: column;
-    
-    
-   
-    
-
 }
 .central-text [id^=ct-col]{
     transition: transform 1s;
@@ -230,9 +225,7 @@ html, body{
     position: absolute;
     transition: transform 500ms cubic-bezier(0, 0.30, 0.19, 1);
 }
-#btn-top svg{
 
-}
 #btn-top{
     position: absolute;
     top: 20px;
@@ -245,7 +238,7 @@ html, body{
     flex-direction: column;
     width: 100%;
     z-index: 50;
-    
+    cursor: pointer;
    
     overflow: hidden;
 }
