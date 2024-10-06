@@ -45,29 +45,31 @@
         </div>
     </div>
     <div id="app">
-        
-        <div id="btn-top">
-            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="40" viewBox="0 0 25 7">
-                <path fill="#FFF2DE" d="M 12.5 20 L 11.5 20 L 11.5 20 L 13.5 20 L 13.5 20 L 12.5 20 L 12.5 1 z">
-                    <animate id="animation-forward" fill="freeze" attributeName="d" dur="0.8s" begin="indefinite"
-                    values="
-                    M 12.5 20 L 11.5 20 L 11.5 20 L 13.5 20 L 13.5 20 L 12.5 20 L 12.5 1 z;
-                    M 12.5 20 L 11.5 20 L 11.5 0 L 14 0 L 13.5 20 L 12.5 20 L 12.5 1 z;
-                    M 3 7 L 0 7 L 12.5 0 L 12.5 0 L 25 7 L 22 7 L 12.5 1.75 z;              "/>
-                    <animate id="animation-backward" fill="freeze" attributeName="d" dur="0.8s" begin="indefinite"
-                    values="
-                    M 3 7 L 0 7 L 12.5 0 L 12.5 0 L 25 7 L 22 7 L 12.5 1.75 z;
-                    M 12.5 20 L 11.5 20 L 11.5 0 L 14 0 L 13.5 20 L 12.5 20 L 12.5 1 z;
-                    M 12.5 20 L 11.5 20 L 11.5 20 L 13.5 20 L 13.5 20 L 12.5 20 L 12.5 1 z;             "/>
+        <div id="top-container">
+            <div id="btn-top">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 7">
+                            <path fill="#FFF2DE" d="M 12.5 20 L 11.5 20 L 11.5 20 L 13.5 20 L 13.5 20 L 12.5 20 L 12.5 1 z">
+                                <animate id="animation-forward" fill="freeze" attributeName="d" dur="0.8s" begin="indefinite"
+                                values="
+                                M 12.5 20 L 11.5 20 L 11.5 20 L 13.5 20 L 13.5 20 L 12.5 20 L 12.5 1 z;
+                                M 12.5 20 L 11.5 20 L 11.5 0 L 14 0 L 13.5 20 L 12.5 20 L 12.5 1 z;
+                                M 3 7 L 0 7 L 12.5 0 L 12.5 0 L 25 7 L 22 7 L 12.5 1.75 z;              "/>
+                                <animate id="animation-backward" fill="freeze" attributeName="d" dur="0.8s" begin="indefinite"
+                                values="
+                                M 3 7 L 0 7 L 12.5 0 L 12.5 0 L 25 7 L 22 7 L 12.5 1.75 z;
+                                M 12.5 20 L 11.5 20 L 11.5 0 L 14 0 L 13.5 20 L 12.5 20 L 12.5 1 z;
+                                M 12.5 20 L 11.5 20 L 11.5 20 L 13.5 20 L 13.5 20 L 12.5 20 L 12.5 1 z;             "/>
 
-                  
-                </path>
-    
+                            
+                            </path>
                 
-            </svg>
-            <div id="btn-back">
-                Back
-            </div>
+                            
+                        </svg>
+                        <div id="btn-back">
+                            Back
+                        </div>
+        </div>
+        
         </div>
 
         <div id="tb-qt-app">
@@ -279,10 +281,30 @@
         </div>
 
         <div id="detail-section"> 
-            <div id="detail-btn">
-                    <div>See details</div>
+            <div id="bottom-btn">
+                
+                    
+                    
+                
+              <div id="detail-btn">Details</div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 7">
+                    <path fill="#FFF2DE" d="M 12.5 20 L 11.5 20 L 11.5 20 L 13.5 20 L 13.5 20 L 12.5 20 L 12.5 1 z">
+                        <animate id="animation-forward-bottom" fill="freeze" attributeName="d" dur="0.8s" begin="indefinite"
+                        values="
+                        M 12.5 20 L 11.5 20 L 11.5 20 L 13.5 20 L 13.5 20 L 12.5 20 L 12.5 1 z;
+                        M 12.5 20 L 11.5 20 L 11.5 0 L 14 0 L 13.5 20 L 12.5 20 L 12.5 1 z;
+                        M 3 7 L 0 7 L 12.5 0 L 12.5 0 L 25 7 L 22 7 L 12.5 1.75 z;              "/>
+                        <animate id="animation-backward-bottom" fill="freeze" attributeName="d" dur="0.8s" begin="indefinite"
+                        values="
+                        M 3 7 L 0 7 L 12.5 0 L 12.5 0 L 25 7 L 22 7 L 12.5 1.75 z;
+                        M 12.5 20 L 11.5 20 L 11.5 0 L 14 0 L 13.5 20 L 12.5 20 L 12.5 1 z;
+                        M 12.5 20 L 11.5 20 L 11.5 20 L 13.5 20 L 13.5 20 L 12.5 20 L 12.5 1 z;             "/>
+                    </path>
+                </svg>
+                
+
             </div>
-            <div id="mf-details">
+            <!--<div id="mf-details">
                
                 <div class="details-container">
                     <div><span class="detail-title">  Role :</span> Frontend developer</div>
@@ -291,7 +313,7 @@
                 </div>
                 
 
-            </div>
+            </div>-->
 
         </div>
 

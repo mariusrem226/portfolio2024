@@ -201,17 +201,17 @@ html, body{
 
 #detail-section{
     position: absolute;
-    bottom: 40px;
+    bottom: 20px;
     font-size: 20px;
     font-family: Roboto;
     display: flex;
     text-align: center;
-    justify-content: center;
+    
     align-items: center;
     flex-direction: column;
     width: 100%;
     z-index: 50;
-    height: 25px;
+    
     overflow: hidden;
 
 }
@@ -225,8 +225,18 @@ html, body{
     position: absolute;
     transition: transform 500ms cubic-bezier(0, 0.30, 0.19, 1);
 }
-
-#btn-top{
+#btn-top, #bottom-btn{
+    
+    cursor: pointer;
+    pointer-events: none;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#top-container{
     position: absolute;
     top: 20px;
     font-size: 20px;
@@ -238,8 +248,7 @@ html, body{
     flex-direction: column;
     width: 100%;
     z-index: 50;
-    cursor: pointer;
-   
+    
     overflow: hidden;
 }
 #btn-back{
@@ -249,10 +258,14 @@ html, body{
     
 }
 #detail-btn{
-    position: absolute;
-    transform: translateY(25px);
+    position: relative;
+    transform: translateY(-50px);
     transition: transform 500ms cubic-bezier(0, 0.30, 0.19, 1);
 
+}
+
+#bottom-btn svg{
+    rotate:180deg;
 }
 .detail-title{
     font-family: RobotoBold;
@@ -267,18 +280,6 @@ html, body{
     justify-content: center;
 }
 
-
-/*#detail-btn::after{
-    content: "";
-    width: 110%;
-    position: absolute;
-    background-color: #FFF2DE;
-    height: 1px;
-    bottom: -3px;
-}
-#detail-btn:hover:after{
-   background-color: red;
-}*/
 
 
 .big-title-container{
