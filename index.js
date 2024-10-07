@@ -210,7 +210,7 @@ function initBottomBtn() {
 }
 function setDetailBtnClick(details, img, title, functionShowCentralText, top, left) {
 
-  detail_btn.addEventListener('click', () => {
+  bottom_btn.addEventListener('click', () => {
 
 
     showDetailAnimation(details, img.querySelector(".img-project"), title);
@@ -233,7 +233,7 @@ function handleBackClick(event) {
 }
 function setCloseDetailBtnClick(details, img, title, functionShowCentralText, top, left) {
   btn_top.style.pointerEvents = "auto";
-  detail_btn.style.pointerEvents = "auto";
+  bottom_btn.style.pointerEvents = "none";
 
   backClickfunction = () => {
     closeDetailFunction(details, img, title, functionShowCentralText, top, left);
@@ -243,7 +243,7 @@ function setCloseDetailBtnClick(details, img, title, functionShowCentralText, to
 
 function setUnselectBtnClick(details, img, title, functionShowCentralText, top, left) {
   btn_top.style.pointerEvents = "auto";
-  detail_btn.style.pointerEvents = "auto";
+  bottom_btn.style.pointerEvents = "auto";
 
   console.log("setUnselectBtnClick called");
   backClickfunction = () => {
