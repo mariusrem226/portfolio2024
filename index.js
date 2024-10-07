@@ -272,10 +272,14 @@ function unselectAnimation(img, top, left) {
   collapseDetailBtnAnimation();
   showNameAnimation();
   console.log("jusquici", img_mf_container);
-  initImagesOverEffect();
+  
   cursor.style.zIndex = "0";
   rotate_tbqt();
-  initOnClickImages();
+  setTimeout(initOnClickImages, 900);
+  setTimeout(initImagesOverEffect, 900);
+
+  
+  
 
 }
 updateBackButtonListener();
@@ -322,7 +326,6 @@ function simulateProgress() {
       setTimeout(rotate_tbqt, 500)
       setTimeout(showMainImagesAnimation, 1000)
       setTimeout(() => { document.body.addEventListener('pointermove', pointerMoveHandler); }, 1000)
-
 
     }
   }
@@ -489,8 +492,8 @@ function hideBigTitle(title) {
 function unPutMainImageFullScreen(img) {
   img.style.transition = "all 300ms ease-in";
 
-  //img.style.maxHeight="70%";
-  //img.style.width="80%";
+  img.style.height="70%";
+  img.style.width="60%";
   img.style.filter = "blur(0px)";
 }
 function showTBQT() {
@@ -594,8 +597,8 @@ function revealBigTitle(title) {
 function putMainImageFullScreen(img) {
   img.style.transition = "all 300ms ease-in";
 
-  //img.style.maxHeight="100%";
-  //img.style.width="100%";
+  img.style.height="100%";
+  img.style.width="100%";
   img.style.filter = "blur(80px)";
 
 
@@ -824,8 +827,8 @@ function unPutImageInFront(img, top, left) {
   img.style.transition = "all 1s cubic-bezier(.8,0,.20,1)";
   showMainImagesAnimation()
 
-  img.style.height = "200px";
-  img.style.width = "281px";
+  img.style.height = "170px";
+  img.style.width = "300px";
 }
 
 
