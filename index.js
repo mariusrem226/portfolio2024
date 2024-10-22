@@ -17,6 +17,7 @@ const HEIGHT_LETTER_CELL = 70;
 const detail_btn = document.getElementById('detail-btn');
 const detail_section = document.getElementById('detail-section');
 const detail_mf = document.getElementById('mf-details');
+const detail_container = document.getElementById('details-container');
 const bottom_btn = document.getElementById("bottom-btn");
 
 
@@ -274,13 +275,10 @@ function unselectAnimation(img, top, left) {
   console.log("jusquici", img_mf_container);
   
   cursor.style.zIndex = "0";
-  rotate_tbqt();
+  
   setTimeout(initOnClickImages, 900);
   setTimeout(initImagesOverEffect, 900);
-
-  
-  
-
+  //rotate_tbqt();
 }
 updateBackButtonListener();
 
@@ -465,8 +463,8 @@ function closeDetailAnimation(details, img, title, functionShowCentralText) {
 
 }
 function hideDetails(details) {
-  //const details_container = details.querySelector(".details-container");
-  //details_container.style.transform = "translateY(25px)";
+  const details_container = details.querySelector(".details-container");
+  details_container.style.transform = "translateY(25px)";
 }
 function reinitGallery() {
   gallery_container.style.display = "none";
@@ -524,14 +522,14 @@ function showDetailAnimation(details, img, title) {
   setTimeout(revealBigTitle, 450, title);
   setTimeout(collapseDetailBtnAnimation, 450);
   setTimeout(showGallery, 1000);
-  setTimeout(showDetails, 1800, details);
+  setTimeout(showDetails, 2000, details);
 
 }
 
 
 function showDetails(details) {
-  //const details_container = details.querySelector(".details-container");
-  //details_container.style.transform = "translateY(0px)";
+  const details_container = details.querySelector(".details-container");
+  details_container.style.transform = "translateY(-25px)";
 }
 function showGallery() {
   gallery_container.style.display = "inline";
@@ -700,8 +698,10 @@ function endCursorHoverAnimation() {
     //child.style.animation ="";
     child.style.height = "20px";
     child.style.width = "20px";
+    child.style.animation = 'none ';
   }
   rotate_cursor(-1);
+  
   document.body.addEventListener('pointermove', pointerMoveHandler);
 }
 
