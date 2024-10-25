@@ -101,6 +101,7 @@ html, body{
     position: relative;
     font-size: 80px;
     height: 70px;
+    line-height: 70px;
     text-align: center;
     
     
@@ -202,7 +203,7 @@ html, body{
 #detail-section{
     position: absolute;
     bottom: 20px;
-    font-size: 20px;
+    font-size: 18px;
     font-family: Roboto;
     display: flex;
     text-align: center;
@@ -240,7 +241,7 @@ html, body{
 #top-container{
     position: absolute;
     top: 20px;
-    font-size: 20px;
+    font-size: 18px;
     font-family: Roboto;
     display: flex;
     text-align: center;
@@ -310,6 +311,7 @@ html, body{
     text-align: center;
     overflow: hidden;
     height: 350px;
+    line-height: 350px;
 
     transform: translateX(-300px);
     color: #fffcf8;
@@ -402,3 +404,96 @@ html, body{
   .pulser {
     animation: pulse 3s ease-in-out infinite;
   }
+
+  #btn-about-container{
+    position: absolute;
+    right: 50px;
+    top: 50px;
+    font-family: Roboto;
+    font-size: 20px;
+    text-transform: uppercase;
+    z-index: 100;
+    display: flex;
+   
+    align-items: center;
+    flex-direction: column;
+    height: 25px;
+   
+    overflow: hidden;
+    
+  }
+#btn-open-about,#btn-close-about{
+    height: 25px;
+    line-height: 25px;
+    transition: transform 1s;
+    
+}
+
+ /* #btn-about-container ::after{
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    width: 110%;
+    height: 1px;
+    background-color: #FFF2DE;
+  }*/
+
+  #central-elements{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #about-section{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    transform: translateY(1000px);
+    opacity: 0;
+    z-index: 100;
+    transition: opacity 400ms;
+  }
+  .info-container{
+    display: flex;
+  }
+  .info-prefix{
+    font-size: 40px;
+    font-family: Roboto;
+    
+  }
+  .info-movable{
+    display: flex;
+    font-size: 60px;
+    margin-left: 15px;
+    height: 50px;
+    overflow: hidden;
+  }
+
+  [class^=info-col] div {
+    width: 40px;
+    text-align: center;
+    line-height: 50px;
+    height: 50px;
+  }
+  [class^=info-col]{
+    border: #262626 1px solid;
+   
+    height: 50px;
+    transition: transform 1s;
+  }
+  .about-line {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .change-btn{
+    font-size: 40px;
+    height: 50px;
+    z-index: 100;
+  }
+  .change-btn:hover{
+    cursor: pointer;
+  }
+ 

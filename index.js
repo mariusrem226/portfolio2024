@@ -20,7 +20,8 @@ const detail_mf = document.getElementById('mf-details');
 const detail_container = document.getElementById('details-container');
 const bottom_btn = document.getElementById("bottom-btn");
 
-
+//central elements
+const central_elements = document.getElementById('central-elements');
 
 //get cols name
 
@@ -81,6 +82,12 @@ const animation_SVG_forward_bottom = document.getElementById('animation-forward-
 const animation_SVG_backward_bottom = document.getElementById('animation-backward-bottom');
 
 
+//about
+const btnCloseAbout = document.getElementById('btn-close-about');
+const btnOpenAbout = document.getElementById('btn-open-about');
+const aboutSection=document.getElementById("about-section");
+
+var aboutIsOpen=false;
 
 
 function initSelectorClick() {
@@ -177,7 +184,7 @@ function initCol() {
   col_1.style.transform = "translateY(" + -3 * HEIGHT_LETTER_CELL + "px)";
   col_2.style.transform = "translateY(" + HEIGHT_LETTER_CELL + "px)";
   col_3.style.transform = "translateY(" + -4 * HEIGHT_LETTER_CELL + "px)";
-  col_4.style.transform = "translateY(" + -2 * HEIGHT_LETTER_CELL + "px)";
+  col_4.style.transform = "translateY(" + -3 * HEIGHT_LETTER_CELL + "px)";
   col_8.style.transform = "translateY(" + -7 * HEIGHT_LETTER_CELL + "px)";
   col_9.style.transform = "translateY(" + HEIGHT_LETTER_CELL + "px)";
   col_10.style.transform = "translateY(" + -4 * HEIGHT_LETTER_CELL + "px)";
@@ -187,7 +194,7 @@ function allColEmpty() {
   col_1.style.transform = "translateY(" + -3 * HEIGHT_LETTER_CELL + "px)";
   col_2.style.transform = "translateY(" + HEIGHT_LETTER_CELL + "px)";
   col_3.style.transform = "translateY(" + -4 * HEIGHT_LETTER_CELL + "px)";
-  col_4.style.transform = "translateY(" + -2 * HEIGHT_LETTER_CELL + "px)";
+  col_4.style.transform = "translateY(" + -3 * HEIGHT_LETTER_CELL + "px)";
   col_5.style.transform = "translateY(" + HEIGHT_LETTER_CELL + "px)";
   col_6.style.transform = "translateY(" + HEIGHT_LETTER_CELL + "px)";
   col_7.style.transform = "translateY(" + HEIGHT_LETTER_CELL + "px)";
@@ -273,9 +280,9 @@ function unselectAnimation(img, top, left) {
   collapseDetailBtnAnimation();
   showNameAnimation();
   console.log("jusquici", img_mf_container);
-  
+
   cursor.style.zIndex = "0";
-  
+
   setTimeout(initOnClickImages, 900);
   setTimeout(initImagesOverEffect, 900);
   //rotate_tbqt();
@@ -358,10 +365,45 @@ function reverse_rotate_tbqt() {
 }
 
 function rotate_cursor(factor) {
+
+ 
   cursor_elt_1.style.transform = "rotate(" + 45 * factor + "deg)"
   cursor_elt_2.style.transform = "rotate(-" + 45 * factor + "deg)"
   cursor_elt_3.style.transform = "rotate(" + 45 * factor + "deg)"
+  
+
 }
+function rotateCursorByAnim(initialRotation){
+  const angle=initialRotation+=360;
+  cursor_elt_1.animate({
+    transform:`rotate(${angle}deg)`
+  }, {duration:1000});
+  cursor_elt_2.animate({
+    transform:`rotate(-${angle}deg)`
+  }, {duration:1000});
+  cursor_elt_3.animate({
+    transform:`rotate(${angle}deg)`
+  }, {duration:1000});
+}
+
+function getCurrentRotation(elt) {
+  const currentTransform = window.getComputedStyle(elt).transform;
+  let currentRotation = 0;
+
+  if (currentTransform !== 'none') {
+    const values = currentTransform.split('(')[1].split(')')[0].split(',');
+    const a = values[0];
+    const b = values[1];
+    currentRotation = Math.round(Math.atan2(b, a) * (180 / Math.PI));
+  }
+  return currentRotation;
+}
+
+function addCursorRotation(elt, deg) {
+  const newRotation = currentRotation + deg;
+  elt.style.transform = `rotate(${newRotation}deg)`;
+}
+
 
 function showNameAnimation() {
   col_1.style.transform = "translateY(" + 0 + "px)";
@@ -372,15 +414,26 @@ function showNameAnimation() {
   col_6.style.transform = "translateY(-" + HEIGHT_LETTER_CELL + "px)";
   col_7.style.transform = "translateY(" + HEIGHT_LETTER_CELL + "px)";
   col_8.style.transform = "translateY(" + 0 + "px)";
-  col_9.style.transform = "translateY(" + 0 + "px)";
+  col_9.style.transform = "translateY(" + -1 * HEIGHT_LETTER_CELL + "px)";
   col_10.style.transform = "translateY(" + 0 + "px)";
   col_11.style.transform = "translateY(" + 0 + "px)";
+}
+function showAboutTextAnimation() {
+  col_1.style.transform = "translateY(" + HEIGHT_LETTER_CELL + "px)";
+  col_2.style.transform = "translateY(" + HEIGHT_LETTER_CELL + "px)";
+  col_3.style.transform = "translateY(" + HEIGHT_LETTER_CELL + "0px)";
 
+  col_4.style.transform = "translateY(" + -2 * HEIGHT_LETTER_CELL + "px)";
+  col_5.style.transform = "translateY(" + -4 * HEIGHT_LETTER_CELL + "px)";
+  col_6.style.transform = "translateY(" + -4 * HEIGHT_LETTER_CELL + "px)";
+  col_7.style.transform = "translateY(" + -1 * HEIGHT_LETTER_CELL + "px)";
+  col_8.style.transform = "translateY(" + -4 * HEIGHT_LETTER_CELL + "px)";
 
+  col_9.style.transform = "translateY(" + HEIGHT_LETTER_CELL + "px)";
+  col_10.style.transform = "translateY(" + HEIGHT_LETTER_CELL + "px)";
+  col_11.style.transform = "translateY(" + HEIGHT_LETTER_CELL + "px)";
 }
 function showMobileFoodTextAnimation() {
-
-
 
   col_1.style.transform = "translateY(" + 0 + "px)";
   col_2.style.transform = "translateY(" + 0 * HEIGHT_LETTER_CELL + "px)";
@@ -390,10 +443,10 @@ function showMobileFoodTextAnimation() {
   col_6.style.transform = "translateY(" + -2 * HEIGHT_LETTER_CELL + "px)";
   col_7.style.transform = "translateY(" + HEIGHT_LETTER_CELL + "px)";
   col_8.style.transform = "translateY(" + -5 * HEIGHT_LETTER_CELL + "px)";
-  col_9.style.transform = "translateY(" + -3 * HEIGHT_LETTER_CELL + "px)";
+  col_9.style.transform = "translateY(" + 0 * HEIGHT_LETTER_CELL + "px)";
   col_10.style.transform = "translateY(" + -1 * HEIGHT_LETTER_CELL + "px)";
   col_11.style.transform = "translateY(" + -2 * HEIGHT_LETTER_CELL + "px)";
-  //rotate_tbqt();
+
 }
 function showAnazirTextAnimation() {
   col_1.style.transform = "translateY(" + -1 * HEIGHT_LETTER_CELL + "px)";
@@ -490,8 +543,8 @@ function hideBigTitle(title) {
 function unPutMainImageFullScreen(img) {
   img.style.transition = "all 300ms ease-in";
 
-  img.style.height="70%";
-  img.style.width="60%";
+  img.style.height = "70%";
+  img.style.width = "60%";
   img.style.filter = "blur(0px)";
 }
 function showTBQT() {
@@ -589,14 +642,11 @@ function revealBigTitle(title) {
   }
 }
 
-
-
-
 function putMainImageFullScreen(img) {
   img.style.transition = "all 300ms ease-in";
 
-  img.style.height="100%";
-  img.style.width="100%";
+  img.style.height = "100%";
+  img.style.width = "100%";
   img.style.filter = "blur(80px)";
 
 
@@ -701,7 +751,7 @@ function endCursorHoverAnimation() {
     child.style.animation = 'none ';
   }
   rotate_cursor(-1);
-  
+
   document.body.addEventListener('pointermove', pointerMoveHandler);
 }
 
@@ -831,6 +881,59 @@ function unPutImageInFront(img, top, left) {
   img.style.width = "300px";
 }
 
+function moveUpCentralElements() {
+  central_elements.style.transition = "transform 1s cubic-bezier(.1,0,.10,1)"
+  central_elements.style.transform = "translate(0, -200px)";
+}
+function replaceCentralElements()
+{
+  central_elements.style.transition = "transform 1s cubic-bezier(.1,0,.10,1)"
+  central_elements.style.transform = "translate(0, 0)";
+}
+function initAboutButtonFunction() {
+ 
+    btnOpenAbout.addEventListener('click', openAbout);
+    btnCloseAbout.addEventListener('click', closeAbout);
+  
+}
+
+function showAboutSection(){
+  console.log("ici");
+  aboutSection.style.transform="translateX(0)";
+  aboutSection.style.opacity="1";
+}
+function hideAboutSection(){
+  console.log("ici");
+  aboutSection.style.opacity="0";
+  setTimeout(()=>{aboutSection.style.transform="translateY(1000px)";},500);
+}
+function translateAboutBtn(factor){
+  btnCloseAbout.style.transform=`translateY(${factor*25}px)`;
+  btnOpenAbout.style.transform=`translateY(${factor*25}px)`;
+}
+function openAbout() {
+  translateAboutBtn(-1);
+  showAboutTextAnimation();
+  initMainImages();
+  moveUpCentralElements();
+  setTimeout(showAboutSection,500);
+  aboutIsOpen=true
+  console.log("called");
+  
+}
+function closeAbout(){
+  translateAboutBtn(0);
+
+  showNameAnimation();
+  showMainImagesAnimation();
+  replaceCentralElements();
+  hideAboutSection();
+  aboutIsOpen=false
+}
+
+
+
+
 
 // Start the simulation
 
@@ -840,4 +943,5 @@ initOnClickImages();
 simulateProgress();
 initImagesOverEffect();
 initBottomBtn();
-initBtnHoverEffect()
+initBtnHoverEffect();
+initAboutButtonFunction();
