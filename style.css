@@ -464,7 +464,7 @@ html, body{
     opacity: 0;
     z-index: 100;
     transition: opacity 400ms;
-    top:55%;
+    top:50%;
   }
   .info-container{
     display: flex;
@@ -510,4 +510,17 @@ html, body{
   .change-btn:hover{
     cursor: pointer;
   }
- 
+ #contact-link{
+    text-decoration: none;
+    color: #FFF2DE;
+    position: relative;
+
+ }
+ #contact-link::after{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #FFF2DE;
+ }

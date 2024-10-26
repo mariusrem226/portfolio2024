@@ -80,7 +80,6 @@ function initChangeBtn(line, movablePositions, name) {
 initChangeBtn(nameLine, movableNamePositionTab, "name");
 initChangeBtn(jobLine, movableJobPositionTab, "job");
 initChangeBtn(useLine, movableUsePositionTab, "use");
-initChangeBtn(contactLine, movableContactPositionTab, "contact");
 
 initMovable(nameLine, movableNamePositionTab);
 initMovable(jobLine, movableJobPositionTab);

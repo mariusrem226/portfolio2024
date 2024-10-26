@@ -41,12 +41,13 @@ const col_11 = document.getElementById('ct-col-11');
 //main images
 var img_mf_container = document.getElementById('img-mobile-food');
 var img_anazir_container = document.getElementById('img-anazir');
-var img_more = document.getElementById('img-more');
+var img_more_container = document.getElementById('img-more');
 
 var img_mf = img_mf_container.querySelector(".img-project");
 var img_anazir = img_anazir_container.querySelector(".img-project");
+var img_more = img_more_container.querySelector(".img-project");
 
-var list_main_images = [img_mf_container, img_anazir_container, img_more];
+var list_main_images = [img_mf_container, img_anazir_container, img_more_container];
 
 const mainImgSection =document.getElementById("main-img-section");
 
@@ -216,7 +217,7 @@ function allColEmpty() {
 function initMainImages() {
   img_mf_container.style.transform = "translate(100vw, 70vh)";
   img_anazir_container.style.transform = "translate(60vw, -100%)";
-  img_more.style.transform = "translate(10vw, 100vh)";
+  img_more_container.style.transform = "translate(10vw, 100vh)";
 }
 function initBottomBtn() {
   detail_btn.style.transform = "translateY(-50px)";
@@ -473,7 +474,7 @@ function showAnazirTextAnimation() {
 function showMainImagesAnimation() {
   img_mf_container.style.transform = "translate(70vw, 70vh)";
   img_anazir_container.style.transform = "translate(60vw, 10vh)";
-  img_more.style.transform = "translate(10vw, 70vh)";
+  img_more_container.style.transform = "translate(10vw, 70vh)";
 }
 function showDetailBtnAnimation() {
   detail_btn.style.transform = "translateY(0px)";
@@ -687,16 +688,17 @@ function removeImagesOverEffect() {
     reAssaignMainImages()
 
 
-    list_main_images = [img_mf_container, img_anazir_container, img_more];
+    list_main_images = [img_mf_container, img_anazir_container, img_more_container];
   });
 }
 function reAssaignMainImages() {
   img_mf_container = document.getElementById('img-mobile-food');
   img_anazir_container = document.getElementById('img-anazir');
-  img_more = document.getElementById('img-more');
+  img_more_container = document.getElementById('img-more');
 
   img_mf = img_mf_container.querySelector(".img-project");
   img_anazir = img_anazir_container.querySelector(".img-project");
+  img_more = img_more_container.querySelector(".img-project");
 }
 
 function initOnClickImages() {
@@ -704,7 +706,7 @@ function initOnClickImages() {
   img_anazir_container.addEventListener('click', function (e) {
     clickOnAnazir();
   });
-  img_more.addEventListener('click', function (e) {
+  img_more_container.addEventListener('click', function (e) {
     clickOnMore();
   });
   img_mf_container.addEventListener('click', function (e) {
@@ -817,35 +819,49 @@ const mouseEnterBtnHandler = (elt) => {
 
 
 function clickOnAnazir() {
-  
+  projectSelected=true;
+  img_anazir_container.classList.add("inFront");
   removeImagesOverEffect();
-  endHoverMainImageAnimation(img_anazir_container);
+  endCursorHoverAnimation();
+  document.body.addEventListener('pointermove', pointerMoveHandler);
+  setDetailBtnClick(detail_mf, img_anazir_container, big_title_mf, showMobileFoodTextAnimation, "70vh", "70vw");
+  setUnselectBtnClick(detail_mf, img_anazir_container, big_title_mf, showMobileFoodTextAnimation, "70vh", "70vw");
 
-  setDetailBtnClick(detail_mf, img_anazir_container, big_title_anazir, showAnazirTextAnimation, "10vh", "95vh");
-  setCloseDetailBtnClick(detail_mf, img_anazir_container, big_title_anazir, showAnazirTextAnimation, "10vh", "95vh");
   cursor.style.zIndex = "10";
-
+  //img_mf_container.style.transform = "translate(100vw, 70vh)";
   setTimeout(() => { img_mf_container.style.transform = "translate(100vw, 70vh)" }, 100);
-  setTimeout(() => { img_more.style.transform = "translate(10vw, 100vh)"; }, 100);
-
+  setTimeout(() => { img_more_container.style.transform = "translate(10vw, 100vh)"; }, 100);
 
   setTimeout(putImageInFront, 100, img_anazir_container);
-  setTimeout(showAnazirTextAnimation, 400);
+  //setTimeout(showMobileFoodTextAnimation, 200); 
 
   setTimeout(showDetailBtnAnimation, 400);
   setTimeout(showBackBtnAnimation, 400);
+
+
+  
 }
 
 
 function clickOnMore() {
+  projectSelected=true;
+  img_more_container.classList.add("inFront");
   removeImagesOverEffect();
-  endHoverMainImageAnimation(img_more);
-  cursor.style.zIndex = "10"
+  endCursorHoverAnimation();
+  document.body.addEventListener('pointermove', pointerMoveHandler);
+  setDetailBtnClick(detail_mf, img_more_container, big_title_mf, showMobileFoodTextAnimation, "70vh", "70vw");
+  setUnselectBtnClick(detail_mf, img_more_container, big_title_mf, showMobileFoodTextAnimation, "70vh", "70vw");
 
+  cursor.style.zIndex = "10";
+  //img_mf_container.style.transform = "translate(100vw, 70vh)";
+  setTimeout(() => { img_mf_container.style.transform = "translate(100vw, 70vh)" }, 100);
+  setTimeout(() => { img_anazir_container.style.transform = "translate(60vw, -100%)" }, 100);
 
+  setTimeout(putImageInFront, 100, img_more_container);
+  //setTimeout(showMobileFoodTextAnimation, 200); 
 
-
-  setTimeout(putImageInFront, 10, img_more);
+  setTimeout(showDetailBtnAnimation, 400);
+  setTimeout(showBackBtnAnimation, 400);
 
 }
 
@@ -861,7 +877,7 @@ function clickOnMobileFood() {
   cursor.style.zIndex = "10";
   //img_mf_container.style.transform = "translate(100vw, 70vh)";
   setTimeout(() => { img_anazir_container.style.transform = "translate(60vw, -100%)" }, 100);
-  setTimeout(() => { img_more.style.transform = "translate(10vw, 100vh)"; }, 100);
+  setTimeout(() => { img_more_container.style.transform = "translate(10vw, 100vh)"; }, 100);
 
 
 
