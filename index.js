@@ -37,7 +37,8 @@ const col_9 = document.getElementById('ct-col-9');
 const col_10 = document.getElementById('ct-col-10');
 const col_11 = document.getElementById('ct-col-11');
 
-//get projects main image
+
+//main images
 var img_mf_container = document.getElementById('img-mobile-food');
 var img_anazir_container = document.getElementById('img-anazir');
 var img_more = document.getElementById('img-more');
@@ -45,9 +46,11 @@ var img_more = document.getElementById('img-more');
 var img_mf = img_mf_container.querySelector(".img-project");
 var img_anazir = img_anazir_container.querySelector(".img-project");
 
-
-
 var list_main_images = [img_mf_container, img_anazir_container, img_more];
+
+const mainImgSection =document.getElementById("main-img-section");
+
+
 
 //get big titles 
 var big_title_mf = document.getElementById('big-title-mf');
@@ -88,6 +91,10 @@ const btnOpenAbout = document.getElementById('btn-open-about');
 const aboutSection=document.getElementById("about-section");
 const btnAboutContainer=document.getElementById("btn-about-container");
 var aboutIsOpen=false;
+
+//bool
+var projectSelected=false;
+
 
 
 function initSelectorClick() {
@@ -263,6 +270,7 @@ function setUnselectBtnClick(details, img, title, functionShowCentralText, top, 
 
 const unSelectFunction = (details, img, title, functionShowCentralText, top, left) => {
   console.log("caca")
+  projectSelected=false;
   btn_top.style.pointerEvents = "none";
   unselectAnimation(img, top, left);
 };
@@ -504,6 +512,8 @@ function collapseTBQT() {
 }
 
 function closeDetailAnimation(details, img, title, functionShowCentralText) {
+  translateAboutBtn(0);
+  btnAboutContainer.style.pointerEvents="auto";
   hideDetails(details);
   setTimeout(hideGallery, 50);
   setTimeout(hideBigTitle, 50, title);
@@ -571,6 +581,8 @@ function showDetailAnimation(details, img, title) {
   setTimeout(collapseTBQT, 100);
 
   putMainImageFullScreen(img);
+  translateAboutBtn(1);
+  btnAboutContainer.style.pointerEvents="none";
 
   setTimeout(revealBigTitle, 450, title);
   setTimeout(collapseDetailBtnAnimation, 450);
@@ -805,6 +817,7 @@ const mouseEnterBtnHandler = (elt) => {
 
 
 function clickOnAnazir() {
+  
   removeImagesOverEffect();
   endHoverMainImageAnimation(img_anazir_container);
 
@@ -837,6 +850,8 @@ function clickOnMore() {
 }
 
 function clickOnMobileFood() {
+  projectSelected=true;
+  img_mf_container.classList.add("inFront");
   removeImagesOverEffect();
   endCursorHoverAnimation();
   document.body.addEventListener('pointermove', pointerMoveHandler);
@@ -885,7 +900,7 @@ function unPutImageInFront(img, top, left) {
 
 function moveUpCentralElements() {
   central_elements.style.transition = "transform 1s cubic-bezier(.1,0,.10,1)"
-  central_elements.style.transform = "translate(0, -200px)";
+  central_elements.style.transform = "translateY(-200px )";
 }
 function replaceCentralElements()
 {
@@ -914,22 +929,54 @@ function translateAboutBtn(factor){
   btnOpenAbout.style.transform=`translateY(${factor*25}px)`;
 }
 function openAbout() {
-  translateAboutBtn(-1);
-  showAboutTextAnimation();
-  initMainImages();
-  moveUpCentralElements();
-  setTimeout(showAboutSection,500);
-  aboutIsOpen=true
-  console.log("called");
-  
+  if(projectSelected){
+    const imgInFront=document.querySelector(".inFront");
+    imgInFront.style.transform="translate(0px, 1000px)";
+    console.log(imgInFront);
+    collapseBackBtnAnimation();
+    collapseDetailBtnAnimation();
+    setTimeout(showAboutTextAnimation,400);
+    translateAboutBtn(-1);
+    setTimeout(moveUpCentralElements,400);
+    setTimeout(showAboutSection,800);
+    btn_top.style.pointerEvents = "none";
+    bottom_btn.style.pointerEvents = "none";
+  }
+  else{
+    
+    initMainImages(); 
+    showAboutTextAnimation();
+    translateAboutBtn(-1);
+    
+    moveUpCentralElements();
+    setTimeout(showAboutSection,600);
+
+  }
+  aboutIsOpen=true  
 }
 function closeAbout(){
-  translateAboutBtn(0);
+  if(projectSelected){
+    showDetailBtnAnimation()
+    showBackBtnAnimation();
+    hideAboutSection();
+    
+    const imgInFront=document.querySelector(".inFront");
+    setTimeout(replaceCentralElements,300);
+    showMobileFoodTextAnimation();
+    setTimeout(()=>{imgInFront.style.transform="translate(0px, 0px)"},100);
+    translateAboutBtn(0);
+    btn_top.style.pointerEvents = "auto";
+    bottom_btn.style.pointerEvents = "auto";
+  }
+  else{
+    translateAboutBtn(0);
 
-  showNameAnimation();
-  showMainImagesAnimation();
-  replaceCentralElements();
-  hideAboutSection();
+    showNameAnimation();
+    showMainImagesAnimation();
+    replaceCentralElements();
+    hideAboutSection();
+  }
+  
   aboutIsOpen=false
 }
 
