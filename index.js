@@ -86,7 +86,7 @@ const animation_SVG_backward_bottom = document.getElementById('animation-backwar
 const btnCloseAbout = document.getElementById('btn-close-about');
 const btnOpenAbout = document.getElementById('btn-open-about');
 const aboutSection=document.getElementById("about-section");
-
+const btnAboutContainer=document.getElementById("btn-about-container");
 var aboutIsOpen=false;
 
 
@@ -719,10 +719,12 @@ function startCursorHoverAnimation(elt, factor) {
   }); // Adjust duration as needed
 
   var delay = 3;
+  const size=Math.max(rect.width, rect.height);
+  
   for (const child of cursor.children) {
-
-    child.style.width = `${factor * rect.width}px`;
-    child.style.height = `${factor * rect.height}px`;
+    
+    child.style.width = `${factor * size}px`;
+    child.style.height = `${factor * size}px`;
     setTimeout(() => { child.style.animation = 'pulse ' + delay + 's ease-in-out infinite'; delay += 0.5 }, 300);
 
 
@@ -733,7 +735,7 @@ function startCursorHoverAnimation(elt, factor) {
 }
 
 function startHoverMainImageAnimation(img) {
-  startCursorHoverAnimation(img, 1.25);
+  startCursorHoverAnimation(img, 0.9);
   showMobileFoodTextAnimation();
 }
 function endHoverMainImageAnimation() {
@@ -932,7 +934,12 @@ function closeAbout(){
 }
 
 
+function initAboutButtonHover(){
+  btnAboutContainer.addEventListener('mouseenter', () => { mouseEnterBtnHandler(btnAboutContainer) });
+  btnAboutContainer.addEventListener('mouseleave', () => { endCursorHoverAnimation() });
 
+  
+}
 
 
 // Start the simulation
@@ -945,3 +952,4 @@ initImagesOverEffect();
 initBottomBtn();
 initBtnHoverEffect();
 initAboutButtonFunction();
+initAboutButtonHover();

@@ -422,6 +422,9 @@ html, body{
     overflow: hidden;
     
   }
+  #btn-about-container:hover{
+    cursor:pointer;
+  }
 #btn-open-about,#btn-close-about{
     height: 25px;
     line-height: 25px;
@@ -452,6 +455,7 @@ html, body{
     opacity: 0;
     z-index: 100;
     transition: opacity 400ms;
+    top:55%;
   }
   .info-container{
     display: flex;
@@ -486,6 +490,7 @@ html, body{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: 15px 0;
   }
 
   .change-btn{
